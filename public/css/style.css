@@ -1,0 +1,57 @@
+/* MAIN CSS ---------------------------------------------------------- */
+@font-face {
+    font-family: "Bold";
+    font-style: normal;
+    src: url(../fonts/ProximaNova-Bold_1760577842[2252].otf);
+}
+
+@font-face {
+    font-family: "Medium";
+    font-style: normal;
+    src: url(../fonts/ProximaNova-Medium_2770618388[2258].otf);
+}
+
+@font-face {
+    font-family: "Regular";
+    font-style: normal;
+    src: url(../fonts/ProximaNova-Regular_2607783814.otf);
+}
+
+@font-face {
+    font-family: "Semibold";
+    font-style: normal;
+    src: url(../fonts/ProximaNova-Semibold_3872794340.otf);
+}
+
+:root {
+    --color-White: #FFFFFF;
+    --color-WebOrange: #F7A100;
+    --color-RegentBlue: #E6F2F7;
+    --color-Lochmara: #0071B3;
+    --color-MineShaft: #333333; 
+
+    --color-Malibu: #60C5F8;
+
+    --color-Footer: #F2F2F2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Semibold";
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+}
