@@ -13,6 +13,14 @@
     --orange-darker: #de9000;
     --bahama-blue: #006199;
     --regent-blue-darker: #a2c9da;
+    --malibu: #60c5f8;
+    --color-background: #fafafa;
+
+
+
+
+  --color-footer: #F2F2F2;
+
 
     --default-star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 53.867 53.867" xml:space="preserve"><polygon fill="%23e6e6e6" points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/></svg>');
     --active-star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 53.867 53.867" xml:space="preserve"><polygon fill="%23f7a100" points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/></svg>');
@@ -30,6 +38,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+    background-color: var(--color-background);
 }
 
 /* ---- Utility classes ---- */
@@ -78,10 +87,10 @@ section p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 1rem;
+    margin-right: 5rem;
     position: relative;
-    width: 5rem;
     transition: 0.2s ease-in;
+    cursor: pointer;
 }
 
 .member-list .member-item picture {
@@ -437,14 +446,15 @@ nav li:not(.li-logo):hover {
     display: flex;
     align-items: center;
     list-style-type: none;
+    margin-top: 1rem;
 }
 
 .breadcrumbs > li {
-    color: var(--gray);
+    color: var(--neutral-2);
 }
 
-.breadcrumbs:last-child {
-    color: var(--lightgray);
+.breadcrumbs > li:last-child {
+    color: var(--neutral);
 }
 
 .breadcrumbs > li::after {
@@ -494,7 +504,7 @@ nav li:not(.li-logo):hover {
     white-space: nowrap;
     text-transform: capitalize;
     font-weight: 500;
-    color: var(--color-black);
+    color: var(--mine-shaft);
     margin-bottom: 2.188rem;
     position: relative;
     cursor: pointer;
@@ -505,14 +515,14 @@ nav li:not(.li-logo):hover {
     position: absolute;
     left: 0;
     bottom: -10px;
-    background-color: var(--primary-color);
+    background-color: var(--web-orange);
     height: 2px;
     box-sizing: border-box;
     width: 3.125rem;
 }
 
 .footer-col .footer-title svg {
-    fill: var(--blue);
+    fill: var(--lochmara);
 }
 
 .footer-col ul {
@@ -529,7 +539,7 @@ nav li:not(.li-logo):hover {
     text-transform: capitalize;
     text-decoration: none;
     font-weight: 300;
-    color: var(--blue);
+    color: var(--lochmara);
     display: block;
     transition: all 0.3s ease;
 }
@@ -541,7 +551,7 @@ nav li:not(.li-logo):hover {
 
 .second-footer {
     padding: 0 4rem;
-    background-color: var(--gray);
+    background-color: var(--neutral-2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -560,16 +570,16 @@ nav li:not(.li-logo):hover {
     width: 2.5rem;
     padding: 1rem 0;
     margin: 0.5rem;
-    background-color: var(--border-color);
+    background-color: var(--color-footer);
     text-align: center;
     line-height: 2.5rem;
     border-radius: 50%;
-    color: var(--primary-color-light);
+    color: var(--web-orange);
     transition: all 0.5s ease;
 }
 
 .second-footer .social-links svg {
-    fill: var(--blue);
+    fill: var(--lochmara);
 }
 
 .second-footer .social-links a:first-child {
@@ -577,7 +587,7 @@ nav li:not(.li-logo):hover {
 }
 
 .second-footer .social-links a:hover {
-    color: var(--color-black);
+    color: var(--mine-shaft);
     background-color: var(--malibu);
 }
 
@@ -590,7 +600,7 @@ nav li:not(.li-logo):hover {
 }
 
 .second-footer a.privacy-statement {
-    color: var(--blue-light);
+    color: var(--white);
     transition: all 0.5s ease;
     cursor: pointer;
 }
@@ -603,7 +613,7 @@ nav li:not(.li-logo):hover {
 .second-footer a.language span {
     margin-left: 5px;
     text-align: center;
-    color: var(--blue-light);
+    color: var(--white);
 }
 
 .second-footer a.language svg {
@@ -640,7 +650,7 @@ nav li:not(.li-logo):hover {
 
     .second-footer {
         padding: 0 4rem;
-        background-color: var(--gray);
+        background-color: var(--neutral-2);
         display: flex;
         flex-direction: column;
     }
@@ -972,32 +982,6 @@ nav li:not(.li-logo):hover {
     dialog {
         width: 50%;
         border-radius: 0.75rem;
-    }
-}
-
-/* ---- Footer breakpoints ---- */
-
-@media (max-width: 768px) {
-    .footer-container {
-        padding: 0 4rem 2rem;
-    }
-    .footer-col {
-        width: 50%;
-        margin-bottom: 1.875rem;
-    }
-}
-
-@media (max-width: 575px) {
-    .footer-col {
-        width: 100%;
-        padding: 0 4rem;
-    }
-
-    .second-footer {
-        padding: 0 4rem;
-        background-color: var(--gray);
-        display: flex;
-        flex-direction: column;
     }
 }
 
