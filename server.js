@@ -1,5 +1,5 @@
 // Importeer het npm pakket express uit de node_modules map
-import express from "express";
+import express, { application } from "express";
 
 // Importeer de zelfgemaakte functie fetchJson uit de ./helpers map
 import fetchJson from "./helpers/fetch-json.js";
@@ -95,6 +95,30 @@ app.post("/rate/:id/:rating", function (request, response) {
         response.json(data);
     });
 });
+
+// ---- Remove favorites ----
+
+app.post('/delete/:id', async (req, res) => {
+    const housesID = req.params.id;
+  
+    try {
+      const response = await fetch(apiUrl + f_list + "/6?fields=houses?filter[houses]=" + housesID, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      if (response.ok) {
+        res.redirect('/favorites');
+      } else {
+        const errorData = await response.json();
+        res.status(500).send(`Error deleting house: ${errorData.errors[0].message}`);
+      }
+    } catch (error) {
+      res.status(500).send(`Error deleting house: ${error.message}`);
+    }
+  });
 
 // Stel het poortnummer in waar express op moet gaan luisteren
 app.set("port", process.env.PORT || 8000);
