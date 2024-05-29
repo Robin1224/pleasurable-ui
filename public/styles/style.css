@@ -135,6 +135,10 @@ section p {
     transition: 0.2s ease-in;
 }
 
+.option-row .btn-blue:nth-child(1) {
+    padding: 0.75rem;
+}
+
 .option-row .btn-blue:hover {
     border: 0.1rem solid var(--regent-blue-darker);
     outline-offset: 1rem;
