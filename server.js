@@ -56,7 +56,7 @@ app.get("/", function (request, response) {
             houses.f_houses_id.poster_image.height`
         ),
         fetch(
-            "https://fdnd-agency.directus.app/items/f_feedback?fields=house,rating&filter[list][_eq]=6"
+            "https://fdnd-agency.directus.app/items/f_feedback?fields=house,rating&filter[list][_eq]=6&limit=-1"
         )
     ]).then(function (responses) {
         // Maak van beide responses een json object
