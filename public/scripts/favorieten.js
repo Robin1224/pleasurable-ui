@@ -64,12 +64,6 @@ document.querySelectorAll(".rating-success .tick").forEach((successEl) => {
     });
 });
 
-// Onderdeel van de Progressive Enhancement feature voor het submitten op de eventListener van de radio buttons, verbergt de submit knop
-// Verberg alle submit knoppen op de rating forms
-document.querySelectorAll(".rating-form button").forEach((button) => {
-    button.classList.add("hidden");
-});
-
 // Rating form logica
 document.querySelectorAll(".rating-form").forEach((form) => {
     const radios = form.querySelectorAll("input[type=radio]");
