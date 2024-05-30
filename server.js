@@ -29,102 +29,124 @@ app.use(express.urlencoded({ extended: true }));
 
 // Maak een GET route voor de favorieten pagina
 app.get("/", function (request, response) {
-    // Voer tegelijkertijd een GET request uit naar de API om de huizen, en de ratings op te halen
-    Promise.all([
-        fetch(
-            "https://fdnd-agency.directus.app/items/f_list/6?fields=id,title,description,users.id,users.f_users_id.name,users.f_users_id.email,users.f_users_id.avatar,houses.id,houses.f_houses_id.id,houses.f_houses_id.street,houses.f_houses_id.house_nr,houses.f_houses_id.city,houses.f_houses_id.postal_code,houses.f_houses_id.price,houses.f_houses_id.poster_image.id,houses.f_houses_id.poster_image.width,houses.f_houses_id.poster_image.height"
-        ),
-        fetch(
-            "https://fdnd-agency.directus.app/items/f_feedback?fields=house,rating&filter[list][_eq]=6"
-        )
-    ]).then(function (responses) {
-        // Maak van beide responses een json object
-        return Promise.all(responses.map(function (response) {
-            return response.json();
-        }));
-    }).then(function (data) {
-        // Maak een nieuwe array aan waarin de huizen en de ratings worden gecombineerd
-        // data[0] is de response van de huizen fetch
-        // data[1] is de response van de ratings fetch
-        const houses = data[0].data;
-        const ratings = data[1].data.reverse();
-        const updatedHousesData = houses.houses.map((house) => {
-            const foundRating = ratings.find((currentRating) => currentRating.house === house.f_houses_id.id);
-            return {
-                ...house,
-                rating: foundRating ? foundRating.rating.general : 0,
-            };
-        });
-        const finalData = { ...houses, houses: updatedHousesData };
+  // Voer tegelijkertijd een GET request uit naar de API om de huizen, en de ratings op te halen
+  Promise.all([
+    fetch(
+      "https://fdnd-agency.directus.app/items/f_list/6?fields=id,title,description,users.id,users.f_users_id.name,users.f_users_id.email,users.f_users_id.avatar,houses.id,houses.f_houses_id.id,houses.f_houses_id.street,houses.f_houses_id.house_nr,houses.f_houses_id.city,houses.f_houses_id.postal_code,houses.f_houses_id.price,houses.f_houses_id.poster_image.id,houses.f_houses_id.poster_image.width,houses.f_houses_id.poster_image.height"
+    ),
+    fetch(
+      "https://fdnd-agency.directus.app/items/f_feedback?fields=house,rating&filter[list][_eq]=6"
+    ),
+  ])
+    .then(function (responses) {
+      // Maak van beide responses een json object
+      return Promise.all(
+        responses.map(function (response) {
+          return response.json();
+        })
+      );
+    })
+    .then(function (data) {
+      // Maak een nieuwe array aan waarin de huizen en de ratings worden gecombineerd
+      // data[0] is de response van de huizen fetch
+      // data[1] is de response van de ratings fetch
+      const houses = data[0].data;
+      const ratings = data[1].data.reverse();
+      const updatedHousesData = houses.houses.map((house) => {
+        const foundRating = ratings.find(
+          (currentRating) => currentRating.house === house.f_houses_id.id
+        );
+        return {
+          ...house,
+          rating: foundRating ? foundRating.rating.general : 0,
+        };
+      });
+      const finalData = { ...houses, houses: updatedHousesData };
 
-        // Render de favorieten.ejs template en geef de gecombineerde data mee
-        response.render("favorieten", { data: finalData });
-    }).catch(function (error) {
-        // if there's an error in any of the fetches, it will be caught here
-        console.error('Error:', error);
+      // Render de favorieten.ejs template en geef de gecombineerde data mee
+      response.render("favorieten", { data: finalData });
+    })
+    .catch(function (error) {
+      // if there's an error in any of the fetches, it will be caught here
+      console.error("Error:", error);
     });
 });
 
 // Get route voor een detailpagina met een request parameter id
 app.get("/detail/:id", function (request, response) {
-    fetchJson(f_houses + "/" + request.params.id + "?fields=*.*.*.*").then(
-        (housesData) => {
-            response.render("detail", { house: housesData.data });
-        }
-    );
+  fetchJson(f_houses + "/" + request.params.id + "?fields=*.*.*.*").then(
+    (housesData) => {
+      response.render("detail", { house: housesData.data });
+    }
+  );
 });
 
 // ---- POST Routes ----
 
 app.post("/rate/:id/:rating", function (request, response) {
-    const id = request.params.id;
-    const rating = request.params.rating;
+  const id = request.params.id;
+  const rating = request.params.rating;
 
-    fetch("https://fdnd-agency.directus.app/items/f_feedback", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            house: id,
-            list: 6,
-            user: 6,
-            rating: { general: rating },
-        }),
-    }).then((data) => {
-        response.json(data);
-    });
+  fetch("https://fdnd-agency.directus.app/items/f_feedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      house: id,
+      list: 6,
+      user: 6,
+      rating: { general: rating },
+    }),
+  }).then((data) => {
+    response.json(data);
+  });
 });
 
 // ---- Remove favorites ----
 
-app.post('/delete/:id', async (req, res) => {
-    const housesID = req.params.id;
-  
-    try {
-      const response = await fetch(apiUrl + f_list + "/6?fields=houses?filter[houses]=" + housesID, {
-        method: 'PATCH',
+app.post("/delete/:id", (req, res) => {
+  fetchJson(
+    "https://fdnd-agency.directus.app/items/f_list/6?fields=houses.f_houses_id"
+  )
+    .then(({ data }) => {
+      data.houses = data.houses.map((house) => house.f_houses_id);
+
+      console.log("houseId:", req.params.id);
+      console.log("original:", data.houses);
+      console.log("index:", data.houses.indexOf(Number(req.params.id)));
+
+      data.houses.splice(data.houses.indexOf(Number(req.params.id)), 1);
+
+      console.log("new:", data.houses);
+
+      // Stuur de bijgewerkte data terug naar Directus
+      return fetch("https://fdnd-agency.directus.app/items/f_list/6", {
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
-        }
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ houses: data.houses }),
       });
-  
-      if (response.ok) {
-        res.redirect('/favorites');
-      } else {
-        const errorData = await response.json();
-        res.status(500).send(`Error deleting house: ${errorData.errors[0].message}`);
-      }
-    } catch (error) {
-      res.status(500).send(`Error deleting house: ${error.message}`);
-    }
-  });
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Huis succesvol verwijderd:", data);
+      res.redirect('/');
+    })
+    .catch((error) => {
+      console.error("Fout bij het verwerken van het verzoek:", error);
+      res.status(500).json({
+        message: "Er is een fout opgetreden bij het verwerken van het verzoek",
+      });
+    });
+});
 
 // Stel het poortnummer in waar express op moet gaan luisteren
 app.set("port", process.env.PORT || 8000);
 
 // Start express op, haal daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get("port"), function () {
-    // Toon een bericht in de console en geef het poortnummer door
-    console.log(`Application started on http://localhost:${app.get("port")}`);
+  // Toon een bericht in de console en geef het poortnummer door
+  console.log(`Application started on http://localhost:${app.get("port")}`);
 });
