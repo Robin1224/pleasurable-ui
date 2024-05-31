@@ -27,7 +27,7 @@
         <a href="/detail/<%= house.id %>">
             <h2><%= house.street %> <%= house.house_nr %></h2>
         </a>
-        <p><%= house.postal_code + house.city %></p>
+        <p><%= house.postal_code %><%- house.postal_code?.endsWith(" ") ? "" : " "%><%= house.city %></p>
         <p class="price">€<%= house.price %> k.k.</p>
         <ul class="info-list">
             <li class="info-item"><%= house.m2 ? house.m2 + " m²" : 0 %></li>
