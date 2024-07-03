@@ -801,6 +801,7 @@ nav li:not(.li-logo):hover {
 }
 
 .delete-house {
+    display: hidden;
     position: absolute;
     top: 0.3rem;
     right: 0.3rem;
