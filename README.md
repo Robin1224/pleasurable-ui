@@ -1,7 +1,5 @@
-> _Fork_ deze leertaak en ga aan de slag. Onderstaande outline ga je gedurende deze taak in jouw eigen GitHub omgeving uitwerken. De instructie vind je in: [docs/INSTRUCTIONS.md](docs/INSTRUCTIONS.md)
-
 # Titel
-<!-- Geef je project een titel en schrijf in één zin wat het is -->
+Funda Opgeslagen Huizen - Pleasurable UI
 
 ## Inhoudsopgave
 
@@ -13,20 +11,38 @@
   * [Licentie](#licentie)
 
 ## Beschrijving
-<!-- Bij Beschrijving staat kort beschreven wat voor project het is en wat je hebt gemaakt -->
-<!-- Voeg een mooie poster visual toe 📸 -->
-<!-- Voeg een link toe naar Github Pages 🌐-->
+De opgeslagen huizen pagina van Funda. Gebruikt Node, EJS en Directus om een database van opgeslagen huizen aan een gebruiker te kunnen tonen.
+Heeft een ratingsysteem waarbij de gebruiker ratings kan geven aan opgeslagen huizen.
+
+![image](https://github.com/Robin1224/pleasurable-ui/assets/81151231/4c766f84-0d43-4812-80e2-7222d310f0b0)
+
+De website is gehost via Render:
+https://pleasurable-ui-qxxg.onrender.com/
 
 ## Gebruik
-<!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
+De gebruiker kan zijn opgeslagen huizen overichtelijk op deze pagina zien. Ook kan de gebruiker ratings geven aan opgeslagen huizen, die vervolgens opgeslagen worden in de Directus database.
 
 ## Kenmerken
-<!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
+
+Gebruikte technologieën:
+* Node
+* EJS
+* Directus
+* Cyclic
+
+De server logica staat in `server.js`. Dit rendert een pagina uit de `/views` directory, en deze gebruiken components uit `/view/partials`
 
 ## Installatie
-<!-- Bij Instalatie staat hoe een andere developer aan jouw repo kan werken -->
+
+1. Clone de repo naar je eigen werkomgeving
+2. Run `npm install` om alle dependencies te installeren
+3. Start een lokale dev server met `npm start`
 
 ## Bronnen
+* MDN
+* StackOverflow
+* Directus docs
+* EJS docs
 
 ## Licentie
 
